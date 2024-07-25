@@ -15,20 +15,14 @@ def change():
     st.session_state['page'] = 'Model'
 
 @st.cache_resource
-def data():
-    df = pd.read_csv(r"K:\data\ResaleFlatPrice.csv")
-
-    return df
-
-@st.cache_resource
 def loading_model():
-    with open(r"K:\data\ML Model\Singapore Regression\model.pkl",'rb') as f:
+    with open(r"K:\data\singapore\Singapore_model.pkl",'rb') as f:
         model = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\town_ohe.pkl",'rb') as f:
+    with open(r"K:\data\singapore\Singapore_town_ohe.pkl",'rb') as f:
         town_ohe = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\storey_le.pkl",'rb') as f:
+    with open(r"K:\data\singapore\Singapore_storey_le.pkl",'rb') as f:
         storey_le = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\flat_le.pkl",'rb') as f:
+    with open(r"K:\data\singapore\Singapore_flat_le.pkl",'rb') as f:
         flat_le = pickle.load(f)
 
     return model,town_ohe,storey_le,flat_le
@@ -36,7 +30,6 @@ def loading_model():
 c1,c2,c3 = st.columns([0.2,0.7,0.1])
 c2.title(":orange[Singapore House Resale Price Prediction]")
 
-df = data()
 model,town_ohe,storey_le,flat_le=loading_model()
 
 if st.session_state['page'] == 'Home':
@@ -68,11 +61,22 @@ and receive accurate selling prices or lead statuses.""")
 if st.session_state['page'] == 'Model':
     c1.button("Back",on_click=back)
     q1,q2 = st.columns([0.1,0.9])
-    town = st.selectbox("Select town",df['town'].unique())
-    flat_type = st.selectbox("Select flat type",df['flat_type'].unique())
-    storey_range = st.selectbox("Select storey range",df['storey_range'].unique())
-    floor_sq = st.number_input(f"Enter Area, Min={df['floor_area_sqm'].min()}, Max={df['floor_area_sqm'].max()}", value=None, placeholder="Type a number...")
-    year = st.number_input(f"Select Lease Star year,Range = {df['lease_commence_date'].min()} - {df['lease_commence_date'].max()}",value=None,placeholder='Type a number...')
+    t = ['ANG MO KIO', 'BEDOK', 'BISHAN', 'BUKIT BATOK', 'BUKIT MERAH','BUKIT PANJANG', 'BUKIT TIMAH', 'CENTRAL AREA',
+        'CHOA CHU KANG','CLEMENTI', 'GEYLANG', 'HOUGANG', 'JURONG EAST', 'JURONG WEST','KALLANG/WHAMPOA', 'MARINE PARADE',
+        'PASIR RIS', 'PUNGGOL','QUEENSTOWN', 'SEMBAWANG', 'SENGKANG', 'SERANGOON', 'TAMPINES','TOA PAYOH', 'WOODLANDS', 
+        'YISHUN']
+    town = st.selectbox("Select town",t)
+
+    flats = ['1 ROOM','2 ROOM','3 ROOM','4 ROOM','5 ROOM','EXECUTIVE','MULTI-GENERATION']
+    flat_type = st.selectbox("Select flat type",flats)
+    
+    storey = ['01 TO 03','04 TO 06','07 TO 09','10 TO 12','13 TO 15','16 TO 18','19 TO 21','22 TO 24', '25 TO 27',
+               '28 TO 30','31 TO 33','34 TO 36','37 TO 39','40 TO 42','43 TO 45','46 TO 48','49 TO 51']
+    storey_range = st.selectbox("Select storey range",storey)
+    
+    floor_sq = st.number_input(f"Enter Area, Min=31.00, Max=280.00", value=None, placeholder="Type a number...")
+    year = st.number_input(f"Select Lease Star year,Range = 1966 - 2020",value=None,placeholder='Type a number...')
+
     m = 'Formula = (Lease start year + 99) - Current year'
     remain = st.number_input("Enter remaining lease year",help=m, value=None, placeholder="Type a number...")
     v = st.button("Predict")
@@ -86,4 +90,4 @@ if st.session_state['page'] == 'Model':
         features = np.concatenate([t,f_t,s_t,result[:,[3,4,5]]],axis=1)
         c = model.predict(features)
         y = round(*c,2)
-        st.success(f"The Resale Value is: {y}")
+        st.success(f"The Resale Value is: S$ {y}")
