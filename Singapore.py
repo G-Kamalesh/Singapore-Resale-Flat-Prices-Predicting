@@ -14,21 +14,6 @@ def back():
 def change():
     st.session_state['page'] = 'Model'
 
-@st.cache_resource
-
-def loading_model():
-    with open("Singapore_model.pkl",'rb') as f:
-        model = pickle.load(f)
-    with open("Singapore_town_ohe.pkl",'rb') as f:
-        town_ohe = pickle.load(f)
-    with open("Singapore_storey_le.pkl",'rb') as f:
-        storey_le = pickle.load(f)
-    with open("Singapore_flat_le.pkl",'rb') as f:
-
-def data():
-    df = pd.read_csv("ResaleFlatPrice.csv")
-
-    return df
 
 @st.cache_resource
 def loading_model():
