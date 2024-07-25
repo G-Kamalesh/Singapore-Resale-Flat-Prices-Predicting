@@ -110,4 +110,4 @@ if st.session_state['page'] == 'Model':
         st.success(f"The Resale Value is: S$ {y}")
 =======
         st.success(f"The Resale Value is: {y}")
->>>>>>> 1bdd1c47790ba4fe26e0a51d5a858405d9ca253b
+
