@@ -16,19 +16,19 @@ def change():
 
 @st.cache_resource
 def data():
-    df = pd.read_csv(r"K:\data\ResaleFlatPrice.csv")
+    df = pd.read_csv("ResaleFlatPrice.csv")
 
     return df
 
 @st.cache_resource
 def loading_model():
-    with open(r"K:\data\ML Model\Singapore Regression\model.pkl",'rb') as f:
+    with open("Singapore_model.pkl",'rb') as f:
         model = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\town_ohe.pkl",'rb') as f:
+    with open("Singapore_town_ohe.pkl",'rb') as f:
         town_ohe = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\storey_le.pkl",'rb') as f:
+    with open("Singapore_storey_le.pkl",'rb') as f:
         storey_le = pickle.load(f)
-    with open(r"K:\data\ML Model\Singapore Regression\flat_le.pkl",'rb') as f:
+    with open("singapore_flat_le.pkl",'rb') as f:
         flat_le = pickle.load(f)
 
     return model,town_ohe,storey_le,flat_le
