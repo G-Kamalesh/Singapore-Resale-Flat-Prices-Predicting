@@ -15,6 +15,7 @@ def change():
     st.session_state['page'] = 'Model'
 
 @st.cache_resource
+<<<<<<< HEAD
 def loading_model():
     with open(r"K:\data\singapore\Singapore_model.pkl",'rb') as f:
         model = pickle.load(f)
@@ -23,6 +24,22 @@ def loading_model():
     with open(r"K:\data\singapore\Singapore_storey_le.pkl",'rb') as f:
         storey_le = pickle.load(f)
     with open(r"K:\data\singapore\Singapore_flat_le.pkl",'rb') as f:
+=======
+def data():
+    df = pd.read_csv("ResaleFlatPrice.csv")
+
+    return df
+
+@st.cache_resource
+def loading_model():
+    with open("Singapore_model.pkl",'rb') as f:
+        model = pickle.load(f)
+    with open("Singapore_town_ohe.pkl",'rb') as f:
+        town_ohe = pickle.load(f)
+    with open("Singapore_storey_le.pkl",'rb') as f:
+        storey_le = pickle.load(f)
+    with open("singapore_flat_le.pkl",'rb') as f:
+>>>>>>> 1bdd1c47790ba4fe26e0a51d5a858405d9ca253b
         flat_le = pickle.load(f)
 
     return model,town_ohe,storey_le,flat_le
@@ -90,4 +107,8 @@ if st.session_state['page'] == 'Model':
         features = np.concatenate([t,f_t,s_t,result[:,[3,4,5]]],axis=1)
         c = model.predict(features)
         y = round(*c,2)
+<<<<<<< HEAD
         st.success(f"The Resale Value is: S$ {y}")
+=======
+        st.success(f"The Resale Value is: {y}")
+>>>>>>> 1bdd1c47790ba4fe26e0a51d5a858405d9ca253b
