@@ -39,7 +39,6 @@ def loading_model():
     with open("Singapore_storey_le.pkl",'rb') as f:
         storey_le = pickle.load(f)
     with open("singapore_flat_le.pkl",'rb') as f:
->>>>>>> 1bdd1c47790ba4fe26e0a51d5a858405d9ca253b
         flat_le = pickle.load(f)
 
     return model,town_ohe,storey_le,flat_le
