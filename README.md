@@ -46,6 +46,8 @@ Skills needed: Data Wrangling, EDA, Model Building & Evaluation, Model Deploymen
 * The app will display the prediction below the button.
   
 # Links
+
 Hugging Face: https://huggingface.co/spaces/kamalesh-g/Singapore-RealEstate-Streamlit
+
 Linkedin: https://www.linkedin.com/in/g-kamaleashwar-28a2802ba/
  
