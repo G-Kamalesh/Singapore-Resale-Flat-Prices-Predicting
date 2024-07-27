@@ -1,5 +1,7 @@
 # Singapore-Resale-Flat-Prices-Predicting
+
 Domain: Real-Estate
+
 Skills needed: Data Wrangling, EDA, Model Building & Evaluation, Model Deployment
 
 # Objective
